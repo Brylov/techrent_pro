@@ -53,17 +53,12 @@ customer_data = [
     {"id": 2, "name": "Sarah Chen", "email": "schen_photo@gmail.com", "phone": "555-0102", "created_at": "2024-02-20"},
     {"id": 3, "name": "Marcus Thorne", "email": "m.thorne@globalmedia.net", "phone": "555-0103", "created_at": "2024-03-05"},
     {"id": 4, "name": "Elena Vance", "email": "evance@blackmesa.org", "phone": "555-0104", "created_at": "2024-05-12"},
-    {"id": 5, "name": "Jordan Smith", "email": "j.smith88@outlook.com", "phone": "555-0105", "created_at": "2024-06-01"},
-    {"id": 6, "name": "Liam O'Connor", "email": "liam@emerald-studios.ie", "phone": "555-0106", "created_at": "2025-01-10"}
 ]
 
 rental_data = [
     {"id": 5001, "equipment_id": 101, "customer_id": 2, "start_date": "2026-03-20", "end_date": "2026-03-23", "status": 2, "total_cost": 450.0},
     {"id": 5002, "equipment_id": 103, "customer_id": 1, "start_date": "2026-03-25", "end_date": "2026-03-28", "status": 1, "total_cost": 255.0},
     {"id": 5003, "equipment_id": 106, "customer_id": 3, "start_date": "2026-03-26", "end_date": "2026-03-30", "status": 1, "total_cost": 480.0},
-    {"id": 5004, "equipment_id": 102, "customer_id": 5, "start_date": "2026-03-01", "end_date": "2026-03-03", "status": 2, "total_cost": 90.0},
-    {"id": 5005, "equipment_id": 104, "customer_id": 4, "start_date": "2026-03-10", "end_date": "2026-03-15", "status": 3, "total_cost": 175.0},
-    {"id": 5006, "equipment_id": 105, "customer_id": 6, "start_date": "2026-03-27", "end_date": "2026-03-29", "status": 1, "total_cost": 80.0}
 ]
 
 if __name__ == "__main__":

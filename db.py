@@ -25,8 +25,12 @@ class Customer:
             raise ValueError(f"Invalid date format for '{created_at}'. Expected ISO format (YYYY-MM-DD).")
 
 
-class STATUS(enumerate):
-    {1:"active", 2: "returned", 3:"overdue"}
+from enum import Enum
+
+class STATUS(Enum):
+    ACTIVE = 1
+    RETURNED = 1
+    OVERDUE = 1
     
 class Rental:
     def __init__(self, id: int, equipment_id: int, customer_id: int, start_date: str, end_date: str, status: STATUS, total_cost: float):

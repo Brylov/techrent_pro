@@ -74,12 +74,20 @@
                             </span>
                         {% endif %}
                     </td>
+                    <!-- Action Links -->
                     <td class="px-6 py-4 text-sm text-right font-medium space-x-2">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 hover:underline">View</a>
+                        <!-- View -->
+                        <a href="/equipment/{{ item.id }}" class="text-indigo-600 hover:text-indigo-900 hover:underline">View</a>
                         <span class="text-gray-300">|</span>
-                        <a href="#" class="text-emerald-600 hover:text-emerald-900 hover:underline">Edit</a>
+                        
+                        <!-- Edit -->
+                        <a href="/equipment/{{ item.id }}/edit" class="text-emerald-600 hover:text-emerald-900 hover:underline">Edit</a>
                         <span class="text-gray-300">|</span>
-                        <a href="#" class="text-red-600 hover:text-red-900 hover:underline">Delete</a>
+                        
+                        <!-- Delete (With safety confirmation) -->
+                        <a href="/equipment/{{ item.id }}/delete" 
+                        onclick="return confirm('Are you sure you want to delete {{ item.name }}?');" 
+                        class="text-red-600 hover:text-red-900 hover:underline">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

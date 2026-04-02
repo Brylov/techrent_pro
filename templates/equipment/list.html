@@ -132,9 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData(form);
         const searchParams = new URLSearchParams(formData).toString();
-        
+
+       
         // Ensure this matches your Flask route exactly (e.g., /equipment or /equipments/list)
         const url = `/equipment?${searchParams}`; 
+
+        window.history.pushState({}, '', url);
 
         fetch(url)
             .then(response => response.text())

@@ -2,9 +2,7 @@ from flask import jsonify, render_template, request
 import math
 from db import equipment_data, customer_data, rental_data, STATUS
 
-
 ITEMS_PER_PAGE = 5
-
 
 def init_api(app):
     
@@ -20,7 +18,6 @@ def init_api(app):
         
         return render_template('index.html', counts=counts, rentals=last_five_rentals)
     
-
     @app.route('/equipment')
     def equipment_list():
         selected_category = request.args.get('category', 'all').lower()

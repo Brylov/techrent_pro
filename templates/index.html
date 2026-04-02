@@ -37,5 +37,61 @@
         </div>
 
     </div>
+
+    
+<div class="mt-8 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-800">Recent Rentals</h2>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-100 text-gray-600 uppercase text-xs font-bold">
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Customer ID</th>
+                    <th class="px-6 py-3">Equipment ID</th>
+                    <th class="px-6 py-3">Start Date</th>
+                    <th class="px-6 py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for rental in rentals %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm">#{{ rental.id }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ rental.customer_id }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ rental.equipment_id }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ rental.start_date }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium 
+                            {% if rental.status.name == 'ACTIVE' %} bg-green-100 text-green-700
+                            {% elif rental.status.name == 'OVERDUE' %} bg-red-100 text-red-700
+                            {% else %} bg-gray-100 text-gray-700 {% endif %}">
+                            {{ rental.status.name }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr class="border-gray-200">
+    </div>
+
+    <div class=" mt-6 mb-4 flex flex-wrap gap-12 items-center justify-center">
+    
+        <a href="/add-equipment" class="flex items-center px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+            <span class="mr-2 text-lg">+</span> Add Equipment
+        </a>
+
+        <a href="/new-rental" class="flex items-center px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors shadow-sm">
+            <span class="mr-2 text-lg">+</span> New Rental
+        </a>
+
+        <a href="/add-customer" class="flex items-center px-5 py-2.5 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition-colors shadow-sm">
+            <span class="mr-2 text-lg">+</span> Add Customer
+        </a>
+
+    </div>
+
 </div>
 {% endblock %}

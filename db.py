@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import Enum
 
 class Equipment:
     def __init__(self, id: int, name: str, category: str, daily_rate: float, quantity: int, description: str, available: bool):
@@ -25,12 +26,10 @@ class Customer:
             raise ValueError(f"Invalid date format for '{created_at}'. Expected ISO format (YYYY-MM-DD).")
 
 
-from enum import Enum
-
 class STATUS(Enum):
     ACTIVE = 1
-    RETURNED = 1
-    OVERDUE = 1
+    RETURNED = 2
+    OVERDUE = 3
     
 class Rental:
     def __init__(self, id: int, equipment_id: int, customer_id: int, start_date: str, end_date: str, status: STATUS, total_cost: float):
@@ -60,9 +59,9 @@ customer_data = [
 ]
 
 rental_data = [
-    {"id": 5001, "equipment_id": 101, "customer_id": 2, "start_date": "2026-03-20", "end_date": "2026-03-23", "status": 2, "total_cost": 450.0},
-    {"id": 5002, "equipment_id": 103, "customer_id": 1, "start_date": "2026-03-25", "end_date": "2026-03-28", "status": 1, "total_cost": 255.0},
-    {"id": 5003, "equipment_id": 106, "customer_id": 3, "start_date": "2026-03-26", "end_date": "2026-03-30", "status": 1, "total_cost": 480.0},
+    {"id": 5001, "equipment_id": 101, "customer_id": 2, "start_date": "2026-03-20", "end_date": "2026-03-23", "status": STATUS.RETURNED, "total_cost": 450.0},
+    {"id": 5002, "equipment_id": 103, "customer_id": 1, "start_date": "2026-03-25", "end_date": "2026-03-28", "status": STATUS.ACTIVE, "total_cost": 255.0},
+    {"id": 5003, "equipment_id": 106, "customer_id": 3, "start_date": "2026-03-26", "end_date": "2026-03-30", "status": STATUS.ACTIVE, "total_cost": 480.0},
 ]
 
 if __name__ == "__main__":

@@ -54,9 +54,17 @@
                     <td class="px-6 py-4 text-sm text-gray-600">{{ item.start_date | format_date_short }}-{{ item.end_date | format_date_short }}</td>
                     <td class="px-6 py-4 text-sm text-gray-700">{{ item.status.name.title() }}</td>
                     <!-- Action Links -->
-                    <td class="px-6 py-4 text-sm text-center font-medium space-x-2 ">
-                        <!-- change to returned -->
-                        <a href="/rentals/{{ item.id }}/return" class="text-emerald-600 hover:text-emerald-900 hover:underline">Change to Return</a>
+                    <td class="px-6 py-4 text-sm text-center font-medium">
+                        {% if item.status.name != 'RETURNED' %}
+                            <a href="/rentals/{{ item.id }}/return" 
+                            class="text-emerald-600 hover:text-emerald-900 hover:underline">
+                            Change to Return
+                            </a>
+                        {% else %}
+                            <span class="text-gray-400 cursor-not-allowed" title="Item already returned">
+                                Change to Return
+                            </span>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

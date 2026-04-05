@@ -44,22 +44,11 @@ class Rental:
 
 # --- 1. EQUIPMENT DATA ---
 equipment_data = [
-    # 5 total. 2 currently out. 3 left. -> Available: True
     {"id": 101, "name": "Sony A7IV Camera", "category": "Photography", "daily_rate": 150.0, "quantity": 5, "description": "Full-frame mirrorless camera. Includes 2 batteries and 64GB SD card.", "available": True},
-    
-    # 3 total. 0 currently out. 3 left. -> Available: True
-    {"id": 102, "name": "DJI Ronin RS3", "category": "Gimbal", "daily_rate": 45.0, "quantity": 3, "description": "3-axis camera stabilizer. Max payload 3kg.", "available": True},
-    
-    # 2 total. 2 currently out. 0 left. -> Available: False
-    {"id": 103, "name": "Aputure 600d Pro", "category": "Lighting", "daily_rate": 85.0, "quantity": 2, "description": "High-output LED daylight lamp with V-mount battery plate.", "available": False},
-    
-    # 4 total. 1 currently out (overdue). 3 left. -> Available: True
-    {"id": 104, "name": "Sennheiser MKH 416", "category": "Audio", "daily_rate": 35.0, "quantity": 4, "description": "Short shotgun interference tube microphone. Industry standard for film.", "available": True},
-    
-    # 6 total. 0 currently out. 6 left. -> Available: True
-    {"id": 105, "name": "SmallHD 702 Touch", "category": "Monitor", "daily_rate": 40.0, "quantity": 6, "description": "7-inch high-bright field monitor with touchscreen.", "available": True},
-    
-    # 1 total. 1 currently out. 0 left. -> Available: False
+    {"id": 102, "name": "DJI Ronin RS3", "category": "Gimbal", "daily_rate": 45.0, "quantity": 3, "description": "3-axis camera stabilizer. Max payload 3kg.", "available": True},   
+    {"id": 103, "name": "Aputure 600d Pro", "category": "Lighting", "daily_rate": 85.0, "quantity": 2, "description": "High-output LED daylight lamp with V-mount battery plate.", "available": False},   
+    {"id": 104, "name": "Sennheiser MKH 416", "category": "Audio", "daily_rate": 35.0, "quantity": 4, "description": "Short shotgun interference tube microphone. Industry standard for film.", "available": True},  
+    {"id": 105, "name": "SmallHD 702 Touch", "category": "Monitor", "daily_rate": 40.0, "quantity": 6, "description": "7-inch high-bright field monitor with touchscreen.", "available": True}, 
     {"id": 106, "name": "Teradek Bolt 6", "category": "Wireless", "daily_rate": 120.0, "quantity": 1, "description": "4K zero-delay wireless video system (1 TX, 1 RX).", "available": False}
 ]
 

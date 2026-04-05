@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Rental - TechRent Pro{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-8 text-center">
+    
+    <!-- Top Header & Add Button -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Rentals</h1>
+        <a href="/rentals/new" class="flex items-center px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+            <span class="mr-2 text-lg">+</span> New Rental
+        </a>
+    </div>
+
+    <form id="filter-form" method="GET" action="/rentals" class="flex flex-wrap items-center gap-6 bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 shadow-sm">
+
+    <div class="flex items-center gap-2">
+    <label for="status" class="text-sm font-medium text-gray-700">Status:</label>
+    <select name="status" id="status" onchange="this.form.dispatchEvent(new Event('submit'))" 
+            class="border border-gray-300 rounded-md px-3 py-1.5 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+        <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All</option>
+        {% for stat in statuses %}
+            <option value="{{ stat.name.lower() }}" {% if selected_status == stat.name.lower() %}selected{% endif %}>
+                {{ stat.name.title() }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+</form>
+
+<!-- WRAPPER FOR AJAX REPLACEMENT -->
+<div id="results-container" class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-100 text-gray-600 uppercase text-xs font-bold">
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Customer Name</th>
+                    <th class="px-6 py-3">Equipment Name</th>
+                    <th class="px-6 py-3">Dates</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for item in rental %}
+                <!-- Your existing row code goes here -->
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm text-gray-500">{{ item.id }}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ item.customer_name }}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ item.equipment_name }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ item.start_date | format_date_short }}-{{ item.end_date | format_date_short }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ item.status.name.title() }}</td>
+                    <!-- Action Links -->
+                    <td class="px-6 py-4 text-sm text-center font-medium space-x-2 ">
+                        <!-- change to returned -->
+                        <a href="/rentals/{{ item.id }}/return" class="text-emerald-600 hover:text-emerald-900 hover:underline">Change to Return</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('filter-form');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Stop page reload
+
+        const formData = new FormData(form);
+        const searchParams = new URLSearchParams(formData).toString();
+
+        // FIX: Point to /rentals, not /equipment
+        const url = `/rentals?${searchParams}`; 
+
+        window.history.pushState({}, '', url);
+
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Replace the results container content
+                const newContent = doc.getElementById('results-container').innerHTML;
+                document.getElementById('results-container').innerHTML = newContent;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+});
+</script>
+{% endblock %}
+
+

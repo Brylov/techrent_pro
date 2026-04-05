@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Customers - TechRent Pro{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-8 text-center">
+    
+    <!-- Top Header & Add Button -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Customers</h1>
+        <a href="/customers/new" class="flex items-center px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+            <span class="mr-2 text-lg">+</span> Register Customer
+        </a>
+    </div>
+
+    <form id="filter-form" method="GET" action="/customers" class="flex flex-wrap items-center gap-6 bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 shadow-sm">
+        
+    <div class="flex items-center gap-2">
+        <label for="search" class="text-sm font-medium text-gray-700">Search:</label>
+        <input type="text" name="search" id="search" value="{{ search_query }}" placeholder="Find Customer..." class="border border-gray-300 rounded-md px-3 py-1.5 text-sm w-64 focus:ring-2 focus:ring-indigo-500 outline-none">
+    </div>
+
+    <!-- The Find button triggers a new search, so it resets page to 1 via JS -->
+    <button type="submit" class="px-5 py-1.5 bg-gray-800 text-white text-sm font-medium rounded-md hover:bg-gray-900 transition-colors shadow-sm">
+        Find
+    </button>
+</form>
+
+<!-- WRAPPER FOR AJAX REPLACEMENT -->
+<div id="results-container" class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-100 text-gray-600 uppercase text-xs font-bold">
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Name</th>
+                    <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Phone</th>
+                    <th class="px-6 py-3">Created At</th>
+                    <th class="px-6 py-3 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for item in customers %}
+                <!-- Your existing row code goes here -->
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm text-gray-500">{{ item.id }}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ item.name }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ item.email }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ item.phone }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ item.created_at | format_date }}</td>
+                    </td>
+                    <!-- Action Links -->
+                    <td class="px-6 py-4 text-sm text-center font-medium space-x-2">
+                        
+                        <!-- Delete (With safety confirmation) -->
+                        <a href="/customers/{{ item.id }}" 
+                        onclick="return confirm('Are you sure you want to delete {{ item.name }}?');" 
+                        class="text-red-600 hover:text-red-900 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('filter-form');
+    const searchInput = document.getElementById('search');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Stop page reload
+
+        const searchParams = new URLSearchParams(new FormData(form)).toString();
+        const url = `/customers?${searchParams}`; 
+
+        // Update the browser URL without reloading
+        window.history.pushState({}, '', url);
+
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Swap out the table body or the whole container
+                const newContent = doc.getElementById('results-container').innerHTML;
+                document.getElementById('results-container').innerHTML = newContent;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    // Optional: Real-time search as you type
+    searchInput.addEventListener('input', () => {
+        form.dispatchEvent(new Event('submit'));
+    });
+});
+</script>
+{% endblock %}
+
+

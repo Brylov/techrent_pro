@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <h1 class="text-3xl font-bold text-gray-800">Reports & Analytics</h1>
+
+    <!-- Revenue Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-emerald-500">
+            <h3 class="text-gray-500 text-sm font-semibold uppercase">Total Completed</h3>
+            <p class="text-2xl font-bold text-gray-800">Revenue: ${{ "{:,.2f}".format(completed_rev) }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-500">
+            <h3 class="text-gray-500 text-sm font-semibold uppercase">Active Pipeline</h3>
+            <p class="text-2xl font-bold text-gray-800">Revenue: ${{ "{:,.2f}".format(active_rev) }}</p>
+        </div>
+    </div>
+
+    <!-- Top 3 Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Top Equipment -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg font-bold mb-4 border-b pb-2">Top Equipment by Rentals</h3>
+            <ul class="space-y-4">
+                {% for item in top_equipment %}
+                <li class="flex justify-between items-center">
+                    <span class="text-gray-700">{{ loop.index }}. {{ item.name }}</span>
+                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">({{ item.count }}x)</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Top Customers -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg font-bold mb-4 border-b pb-2">Top Customers by Spend</h3>
+            <ul class="space-y-4">
+                {% for person in top_customers %}
+                <li class="flex justify-between items-center">
+                    <span class="text-gray-700">{{ loop.index }}. {{ person.name }}</span>
+                    <span class="text-emerald-600 font-bold">${{ "{:,.2f}".format(person.spend) }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rentals by Status Bar -->
+    <div class="bg-white p-6 rounded-xl shadow-md">
+        <h3 class="text-lg font-bold mb-4">Rentals by Status</h3>
+        <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden">
+            <div style="width: {{ status_pct.RETURNED }}%" class="bg-emerald-500 h-full flex items-center justify-center text-white text-xs font-bold" title="Returned">
+                {{ status_counts.RETURNED if status_pct.RETURNED > 5 else '' }}
+            </div>
+            <div style="width: {{ status_pct.ACTIVE }}%" class="bg-indigo-500 h-full flex items-center justify-center text-white text-xs font-bold" title="Active">
+                {{ status_counts.ACTIVE if status_pct.ACTIVE > 5 else '' }}
+            </div>
+            <div style="width: {{ status_pct.OVERDUE }}%" class="bg-red-500 h-full flex items-center justify-center text-white text-xs font-bold" title="Overdue">
+                {{ status_counts.OVERDUE if status_pct.OVERDUE > 5 else '' }}
+            </div>
+        </div>
+        <div class="flex justify-between mt-2 text-xs text-gray-500 font-medium">
+            <span>Returned (Emerald)</span>
+            <span>Active (Indigo)</span>
+            <span>Overdue (Red)</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

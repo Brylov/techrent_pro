@@ -1,0 +1,31 @@
+# --- TechRent Pro Python / Flask ---
+.venv/
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Database / Data ---
+# If you eventually move to SQLite, don't track the actual DB file
+*.db
+*.sqlite
+
+# --- Flasgger / Documentation ---
+# In case flasgger generates local static exports
+.static/
+
+# --- IDEs / Editors ---
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+# General
+*.swp
+*.swo
+
+# --- OS Generated ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log

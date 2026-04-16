@@ -25,7 +25,7 @@ To verify our collaborative process, below is a screenshot of our commit history
 
 ## 📝 Contribution Details
 
-* **[Student Name 1]**: Created the full project.
+* **[Guy Braylovski]**: Created the full project.
 
 ---
 

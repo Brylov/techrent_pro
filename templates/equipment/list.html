@@ -117,8 +117,8 @@
     </div>
 </div>
 
-
-
+{% endblock %}
+{% block scripts %}
 <script>
 // 1. Attach explicitly to window so the HTML onclick can always find it
 window.changePage = function(newPage) {
@@ -184,5 +184,6 @@ function deleteEquipment(equipId, equipName) {
 }
 </script>
 {% endblock %}
+
 
 

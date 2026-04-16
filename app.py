@@ -24,7 +24,7 @@ template = {
     "swagger": "2.0",
     "info": {
         "title": "TechRent Pro REST API",
-        "description": "Base URL: http://localhost:5000/api",
+        "description": "Base URL: http://localhost:5000/",
         "version": "1.0.0",
     }
 }
